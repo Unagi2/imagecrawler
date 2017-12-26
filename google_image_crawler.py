@@ -1,10 +1,5 @@
 # -*- coding:utf-8 -*-
-import urllib.request
 import httplib2
-import os
-import base64
-import hashlib
-import sha3
 import imgutil
 from googleapiclient.discovery import build
 
@@ -24,18 +19,18 @@ startIndex = 1
 response = []
 img_list = []
 
-for nPage in range(0,page_limit):
+for page in range(0,page_limit):
     print("reading page number:",nPage + 1)
     try:
         response.append(service.cse().list(
-            q=query,
-            cx=cse_key,
-            lr="lang_ja",
-            num=10,
-            start=startIndex,
-            searchType="image"
+            q=query,            # 検索ワード
+            cx=cse_key,         # 検索エンジンID
+            lr="lang_ja",       # 言語
+            num=10,             # 1回あたりの取得件数（max10）
+            start=startIndex,   # 取得開始インデックス
+            searchType="image"  # 検索タイプ
         ).execute())
-        startIndex = response[nPage].get("queries").get("nextPage")[0].get("startIndex")
+        startIndex = response[page].get("queries").get("nextPage")[0].get("startIndex")
     except Exception as e:
         print(e)
 
