@@ -7,8 +7,8 @@ from googleapiclient.discovery import build
 path = "/path/to/save"
 
 # parameters
-api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-cse_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"   # APIキー
+cse_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" # 検索エンジンID
 query = "キーワード"
 service = build("customsearch","v1",developerKey=api_key)
 
