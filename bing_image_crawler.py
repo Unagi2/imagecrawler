@@ -2,6 +2,7 @@
 import math
 import requests
 import imgutil
+import time
 
 # image save path
 path = "/path/to/save"
@@ -33,3 +34,4 @@ for offset_num in range(offset):
             print("failed to download image at {}".format(image_url))
             print(e)
             continue
+    time.sleep(1)
