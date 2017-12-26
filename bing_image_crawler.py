@@ -1,27 +1,25 @@
 # -*- coding:utf-8 -*-
 import math
 import requests
-import json
-import urllib
-import os
 import imgutil
 
-path = "/path/to/img"
-img_dir = os.path.join(path,"dlib")
-imgutil.mkdir(img_dir)
+# image save path
+path = "/path/to/save"
+imgutil.mkdir(path)
 
 url = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
 
+# parameters
 query = "キーワード"
-count = 50
-num_per = 50 #default:30 max:150
-offset = math.floor(count / num_per)
-mkt = "ja-JP"
+count = 50      # 1リクエストあたりの最大取得件数 default:30 max:150
+mkt = "ja-JP"   # 取得元の国
 
-SubscriptionKey="xxxxxxxxxx"
-api="xxxxxxxxxxxxxx"
+num_per = 10    # リクエスト回数（count * num_per=取得画像数）
+offset = math.floor(count / num_per)    # ループ回数
 
-headers = {SubscriptionKey:api}
+subscriptionKey="xxxxxxxxxxxxxxxxxxx"    # Bing Search API Key
+
+headers = {'Ocp-Apim-Subscription-Key':subscriptionKey}
 
 for offset_num in range(offset):
     params = {'q':query,'count':count,'offset':offset_num*offset,'mkt':mkt}
@@ -30,7 +28,7 @@ for offset_num in range(offset):
     for values in data['value']:
         image_url = values['contentUrl']
         try:
-            imgutil.download_img(img_dir,values['contentUrl'])
+            imgutil.download_img(path,values['contentUrl'])
         except Exception as e:
             print("failed to download image at {}".format(image_url))
             print(e)
