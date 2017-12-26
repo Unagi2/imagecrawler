@@ -20,7 +20,6 @@ response = []
 img_list = []
 
 for page in range(0,page_limit):
-    print("reading page number:",nPage + 1)
     try:
         response.append(service.cse().list(
             q=query,            # 検索ワード
